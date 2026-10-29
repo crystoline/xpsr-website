@@ -1,0 +1,13 @@
+{% extends "layout/main.twig" %}
+
+{% block title %} {{ 'app.name' | config }}{{ parent() }}{% endblock %}
+{% block content %}
+    <div>
+        <h1>Hello!</h1>
+        <p>Welcome to XPSR framework.</p>
+
+        <p>
+            <a href="https://xpsr.com/">Learn More</a>
+        </p>
+    </div>
+{% endblock %}

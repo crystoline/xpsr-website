@@ -1,0 +1,10 @@
+services:
+  app:
+    image: xpsr-dev:php8.4
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "127.0.0.1:8088:80"

@@ -1,0 +1,56 @@
+{
+    "name": "crystoline/xpsr",
+    "description": "XPSR application skeleton: a PHP framework built around PSR interfaces and interchangeable components",
+    "type": "project",
+    "require": {
+        "php": "^8.4",
+        "crystoline/xpsr-framework": "^0.3",
+        "crystoline/xpsr-router-fastroute": "^0.3",
+        "nyholm/psr7": "^1.8.2",
+        "twig/twig": "^3.4"
+    },
+    "require-dev": {
+        "filp/whoops": "^2.18.4",
+        "phpunit/phpunit": "^12.5"
+    },
+    "suggest": {
+        "crystoline/xpsr-cache": "Application cache (PSR-16 and PSR-6) and the cache:clear command",
+        "crystoline/xpsr-database": "Database connections (Doctrine DBAL) and migrations",
+        "crystoline/xpsr-http-client": "Outgoing HTTP: a configured PSR-18 client and named clients",
+        "crystoline/xpsr-log-monolog": "Monolog logging: stderr, file, daily, or syslog; JSON lines; request IDs",
+        "crystoline/xpsr-orm-doctrine": "Doctrine ORM entities on the XPSR database connection",
+        "crystoline/xpsr-validation": "Request validation: input classes with Symfony Validator rules, 422 with field errors",
+        "crystoline/xpsr-router-sunrise": "Sunrise router adapter. Select it with: php xpsr setup --router=sunrise --install-dependencies"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --colors=always",
+        "test:coverage": "phpunit --coverage-text",
+        "serve": "@php xpsr serve",
+        "serve-docker": "docker compose up -d --build",
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    },
+    "authors": [
+        {
+            "name": "Adekunle",
+            "email": "crystoline@gmail.com"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3.x-dev"
+        }
+    }
+}
