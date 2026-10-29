@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if title %}{{ title }} · {{ site.name }}{% else %}{{ site.name }}: the PHP framework built on PSR standards{% endif %}</title>
+    <meta name="description" content="{{ description ?? site.description }}">
+    {% if canonical is defined and canonical %}
+        <link rel="canonical" href="{{ canonical }}">
+        <meta property="og:url" content="{{ canonical }}">
+    {% endif %}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:title" content="{{ title ?? site.name }}">
+    <meta property="og:description" content="{{ description ?? site.description }}">
+    <meta name="theme-color" content="#5b4cf0">
+    <link rel="icon" href="{{ assets.icon }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ assets.css }}">
+    <script>
+        // Before the first paint: the saved theme, and a class for styles that need scripts.
+        document.documentElement.classList.add('js');
+        try { var theme = localStorage.getItem('xpsr-theme'); if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme; } catch (e) {}
+    </script>
+    <script src="{{ assets.js }}" defer></script>
+    {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}"{% if search_version %} data-search-version="{{ search_version }}"{% endif %}>
+<a class="skip-link" href="#main">Skip to the content</a>
+{% include 'partials/header.twig' %}
+{% block body %}{% endblock %}
+{% include 'partials/footer.twig' %}
+{% include 'partials/search.twig' %}
+</body>
+</html>

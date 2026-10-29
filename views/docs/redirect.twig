@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }} · {{ site.name }}</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="{{ site.url ~ target }}">
+    <meta http-equiv="refresh" content="0; url={{ target }}">
+    <script>location.replace({{ target|json_encode|raw }} + location.hash);</script>
+</head>
+<body>
+<p><a href="{{ target }}">Continue to the documentation</a></p>
+</body>
+</html>

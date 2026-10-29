@@ -1,28 +1,33 @@
 {
-    "name": "crystoline/xpsr",
-    "description": "XPSR application skeleton: a PHP framework built around PSR interfaces and interchangeable components",
+    "name": "crystoline/xpsr-website",
+    "description": "The XPSR website and documentation, built with XPSR and exported as static HTML",
     "type": "project",
+    "license": "MIT",
+    "homepage": "https://xpsr.crysto.name.ng",
+    "authors": [
+        {
+            "name": "Adekunle",
+            "email": "crystoline@gmail.com"
+        }
+    ],
     "require": {
         "php": "^8.4",
+        "ext-dom": "*",
+        "ext-phar": "*",
         "crystoline/xpsr-framework": "^0.3",
         "crystoline/xpsr-router-fastroute": "^0.3",
+        "league/commonmark": "^2.10",
         "nyholm/psr7": "^1.8.2",
+        "phiki/phiki": "^2.2",
+        "symfony/process": "^7.4",
         "twig/twig": "^3.4"
     },
     "require-dev": {
         "filp/whoops": "^2.18.4",
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^12.5"
     },
-    "suggest": {
-        "crystoline/xpsr-cache": "Application cache (PSR-16 and PSR-6) and the cache:clear command",
-        "crystoline/xpsr-database": "Database connections (Doctrine DBAL) and migrations",
-        "crystoline/xpsr-http-client": "Outgoing HTTP: a configured PSR-18 client and named clients",
-        "crystoline/xpsr-log-monolog": "Monolog logging: stderr, file, daily, or syslog; JSON lines; request IDs",
-        "crystoline/xpsr-orm-doctrine": "Doctrine ORM entities on the XPSR database connection",
-        "crystoline/xpsr-validation": "Request validation: input classes with Symfony Validator rules, 422 with field errors",
-        "crystoline/xpsr-router-sunrise": "Sunrise router adapter. Select it with: php xpsr setup --router=sunrise --install-dependencies"
-    },
-    "license": "MIT",
     "autoload": {
         "psr-4": {
             "App\\": "app/"
@@ -34,23 +39,26 @@
         }
     },
     "scripts": {
-        "test": "phpunit --colors=always",
-        "test:coverage": "phpunit --coverage-text",
+        "fetch": "@php xpsr site:fetch",
+        "build": [
+            "@php xpsr site:build",
+            "npx --yes pagefind@1.5.2 --site build"
+        ],
         "serve": "@php xpsr serve",
-        "serve-docker": "docker compose up -d --build",
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ]
+        "test": "phpunit --colors=always",
+        "analyse": "phpstan analyse --no-progress",
+        "style": "php-cs-fixer fix --dry-run --diff",
+        "style:fix": "php-cs-fixer fix",
+        "check": ["@test", "@analyse", "@style"]
     },
-    "authors": [
-        {
-            "name": "Adekunle",
-            "email": "crystoline@gmail.com"
-        }
-    ],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.3.x-dev"
-        }
+    "scripts-descriptions": {
+        "fetch": "Fetch the documentation of every version from crystoline/xpsr.",
+        "build": "Build the static site into build/, with search.",
+        "serve": "Serve the site at http://localhost:3001, rendering pages on each request.",
+        "check": "Run the tests, static analysis, and style checks."
+    },
+    "config": {
+        "sort-packages": true,
+        "process-timeout": 900
     }
 }

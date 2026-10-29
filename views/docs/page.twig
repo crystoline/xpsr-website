@@ -1,0 +1,71 @@
+{% extends 'layout/base.twig' %}
+{% import 'partials/icons.twig' as icon %}
+
+{% block body_class %}docs{% endblock %}
+
+{% block body %}
+{% set index_url = '/docs/' ~ version.id ~ '/' %}
+<div class="docs-layout">
+    <aside class="sidebar" id="sidebar" aria-label="Documentation">
+        <nav>
+            <a class="sidebar-overview" href="{{ index_url }}"{% if page.slug == '' %} aria-current="page"{% endif %}>Overview</a>
+            {% for section in sections %}
+                <div class="sidebar-section">
+                    <h2>{{ section.title }}</h2>
+                    <ul>
+                        {% for item in section.items %}
+                            <li><a href="{{ item.url }}"{% if item.active %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </nav>
+    </aside>
+
+    <main id="main" class="docs-main">
+        {% if banner %}
+            <div class="banner banner-{{ banner.kind }}" role="note">
+                {{ icon.info() }}
+                <p>
+                    {% if banner.kind == 'next' %}
+                        These are the docs of the development version, so they describe changes that are not released yet.
+                    {% else %}
+                        These are the docs of XPSR {{ version.label }}, an earlier release.
+                    {% endif %}
+                    <a href="{{ banner.url }}">Read the {{ banner.latest }} docs</a>
+                </p>
+            </div>
+        {% endif %}
+
+        <article class="prose" data-pagefind-body data-pagefind-filter="version:{{ version.id }}" data-pagefind-meta="title:{{ page.title }}">
+            {% if page.section %}<p class="breadcrumb" data-pagefind-ignore>{{ page.section }}</p>{% endif %}
+            {{ page.html|raw }}
+        </article>
+
+        <footer class="docs-footer">
+            <a class="source-link" href="{{ source.url }}">{{ icon.github() }}{{ source.label }}</a>
+            {% if pager.previous or pager.next %}
+                <nav class="pager" aria-label="Pages">
+                    {% if pager.previous %}
+                        <a class="pager-previous" href="{{ pager.previous.url }}" rel="prev"><small>{{ icon.back() }} Previous</small>{{ pager.previous.title }}</a>
+                    {% endif %}
+                    {% if pager.next %}
+                        <a class="pager-next" href="{{ pager.next.url }}" rel="next"><small>Next {{ icon.arrow() }}</small>{{ pager.next.title }}</a>
+                    {% endif %}
+                </nav>
+            {% endif %}
+        </footer>
+    </main>
+
+    <aside class="toc" aria-label="On this page">
+        {% if page.headings|length > 1 %}
+            <h2>On this page</h2>
+            <ul>
+                {% for heading in page.headings %}
+                    <li class="toc-{{ heading.level }}"><a href="#{{ heading.id }}">{{ heading.text }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </aside>
+</div>
+{% endblock %}

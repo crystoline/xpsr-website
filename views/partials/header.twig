@@ -1,0 +1,31 @@
+{% import 'partials/icons.twig' as icon %}
+<header class="site-header">
+    <div class="header-inner">
+        {% if sections is defined %}
+            <button class="icon-button nav-toggle" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Show the documentation menu">{{ icon.menu() }}</button>
+        {% endif %}
+        <a class="brand" href="/" aria-label="{{ site.name }} home">{{ icon.logo('header-logo') }}<span>{{ site.name }}</span></a>
+        {% if versions is defined %}
+            <details class="version-menu">
+                <summary aria-label="Documentation version">{{ version.release ? 'v' ~ version.label : version.label }}{{ icon.chevron() }}</summary>
+                <ul>
+                    {% for item in versions %}
+                        <li><a href="{{ item.url }}"{% if item.current %} aria-current="true"{% endif %}>{{ item.label }}{% if item.latest %}<span class="tag">latest</span>{% endif %}</a></li>
+                    {% endfor %}
+                </ul>
+            </details>
+        {% endif %}
+        <nav class="header-nav" aria-label="Main">
+            {% set changes = path ends with '/changelog/' %}
+            <a href="{{ docs_home }}"{% if path starts with '/docs/' and path != tutorial and not changes %} class="active"{% endif %}>Docs</a>
+            {% if tutorial %}<a href="{{ tutorial }}"{% if path == tutorial %} class="active"{% endif %}>Tutorial</a>{% endif %}
+            <a href="/#packages">Packages</a>
+            {% if changelog %}<a href="{{ changelog }}"{% if changes %} class="active"{% endif %}>Changelog</a>{% endif %}
+        </nav>
+        <div class="header-actions">
+            <button class="search-button" type="button" data-search-open aria-label="Search the documentation">{{ icon.search() }}<span>Search</span><kbd>/</kbd></button>
+            <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="Switch between light and dark">{{ icon.sun() }}{{ icon.moon() }}</button>
+            <a class="icon-button" href="{{ site.github }}" aria-label="XPSR on GitHub">{{ icon.github() }}</a>
+        </div>
+    </div>
+</header>

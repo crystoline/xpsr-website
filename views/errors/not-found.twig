@@ -1,0 +1,17 @@
+{% extends 'layout/base.twig' %}
+{% import 'partials/icons.twig' as icon %}
+
+{% block head %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block body %}
+<main id="main" class="not-found">
+    <p class="not-found-code">404</p>
+    <h1>This page does not exist</h1>
+    <p>It may have moved when the documentation changed. Search the docs, or start again from the overview.</p>
+    <div class="hero-actions">
+        <button class="button primary" type="button" data-search-open>{{ icon.search() }} Search the docs</button>
+        <a class="button" href="{{ docs_home }}">Documentation</a>
+        <a class="button" href="/">Home</a>
+    </div>
+</main>
+{% endblock %}

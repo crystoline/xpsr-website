@@ -1,0 +1,3 @@
+# Views
+
+Twig by default.

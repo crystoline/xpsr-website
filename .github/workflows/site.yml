@@ -1,0 +1,68 @@
+name: Site
+
+on:
+  push:
+  pull_request:
+  # The documentation lives in crystoline/xpsr, so rebuild daily to pick up its changes,
+  # whenever asked, and when that repository sends a "docs" repository_dispatch event.
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [docs]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, mbstring, phar
+          coverage: none
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - run: composer check
+
+  deploy:
+    needs: check
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, mbstring, phar
+          coverage: none
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist --no-progress --no-dev --optimize-autoloader
+      - name: Build
+        env:
+          APP_ENV: production
+          APP_URL: https://xpsr.crysto.name.ng
+        run: php xpsr site:build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Search index
+        run: npx --yes pagefind@1.5.2 --site build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+      - id: deployment
+        uses: actions/deploy-pages@v4

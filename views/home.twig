@@ -1,0 +1,129 @@
+{% extends 'layout/base.twig' %}
+{% import 'partials/icons.twig' as icon %}
+
+{% block body_class %}home{% endblock %}
+
+{% block body %}
+{% set start = guides['getting-started'] ?? null %}
+<main id="main">
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <p class="eyebrow">
+                    <span>PHP 8.4+</span><span aria-hidden="true">·</span><span>MIT licensed</span>
+                    {% if latest %}<span aria-hidden="true">·</span><span>Latest release {{ latest }}</span>{% endif %}
+                </p>
+                <h1>The PHP framework <span class="gradient">built on PSR standards</span></h1>
+                <p class="lead">Requests, middleware, the container, events, and logs all speak PSR. Choose the router, the view engine, and the ORM; your application code stays the same.</p>
+                <div class="hero-actions">
+                    {% if start %}<a class="button primary" href="{{ start.url }}">Get started {{ icon.arrow() }}</a>{% endif %}
+                    <a class="button" href="{{ docs_home }}">Read the docs</a>
+                </div>
+                <div class="install">
+                    <span class="prompt" aria-hidden="true">$</span>
+                    <code>composer create-project crystoline/xpsr my-app</code>
+                    <button class="copy-button" type="button" data-copy="composer create-project crystoline/xpsr my-app" aria-label="Copy the install command">{{ icon.copy() }}{{ icon.check() }}</button>
+                </div>
+            </div>
+            <div class="hero-code">
+                <div class="window">
+                    <input class="tab-input" type="radio" name="sample" id="tab-routes" checked>
+                    <input class="tab-input" type="radio" name="sample" id="tab-controller">
+                    <input class="tab-input" type="radio" name="sample" id="tab-test">
+                    <div class="window-bar">
+                        <span class="window-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <label for="tab-routes">routes/api.php</label>
+                        <label for="tab-controller">TaskController.php</label>
+                        <label for="tab-test">TaskTest.php</label>
+                    </div>
+                    <div class="panels">
+                        <div class="panel panel-routes">{{ samples.routes|raw }}</div>
+                        <div class="panel panel-controller">{{ samples.controller|raw }}</div>
+                        <div class="panel panel-test">{{ samples.test|raw }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" aria-labelledby="standards">
+        <div class="section-head">
+            <p class="kicker">Standards first</p>
+            <h2 id="standards">Built on the interfaces PHP already agrees on</h2>
+            <p>Each part of XPSR implements or consumes a PHP-FIG standard, so libraries written for those standards work without adapters.</p>
+        </div>
+        <ul class="psr-list">
+            <li><strong>PSR-3</strong><span>Logging</span></li>
+            <li><strong>PSR-6 / 16</strong><span>Caching</span></li>
+            <li><strong>PSR-7</strong><span>HTTP messages</span></li>
+            <li><strong>PSR-11</strong><span>Container</span></li>
+            <li><strong>PSR-14</strong><span>Events</span></li>
+            <li><strong>PSR-15</strong><span>Middleware</span></li>
+            <li><strong>PSR-17</strong><span>HTTP factories</span></li>
+            <li><strong>PSR-18</strong><span>HTTP client</span></li>
+            <li><strong>PSR-20</strong><span>Clock</span></li>
+        </ul>
+    </section>
+
+    <section class="section section-features" aria-labelledby="features">
+        <div class="section-head">
+            <p class="kicker">What you get</p>
+            <h2 id="features">The parts an application needs, none it has to take</h2>
+            <p>The framework stays small. Routers, view engines, ORMs, queues, and mail are separate packages that you install when you need them.</p>
+        </div>
+        <div class="features">
+            {% set cards = [
+                {icon: 'route', title: 'Portable routing', guide: 'routing', text: 'Declare routes once, with groups, constraints, middleware, and names. FastRoute or Sunrise matches them, chosen with one setting.'},
+                {icon: 'plug', title: 'An explicit container', guide: 'container', text: 'Constructor injection by type, explicit bindings, and providers that load on first use. Any PSR-11 consumer can read it.'},
+                {icon: 'layout', title: 'Your view engine', guide: 'views', text: 'Twig by default, or Plates, Latte, or Blade. The same template functions, such as csrf_field() and can(), work in each.'},
+                {icon: 'shield', title: 'Sessions and sign-in', guide: 'auth', text: 'Sessions with CSRF protection, session and JWT guards, separate user tables such as admins, and policies for permissions.'},
+                {icon: 'clock', title: 'Work in the background', guide: 'packages/queue', text: 'Queued jobs on Symfony Messenger, email on Symfony Mailer, file storage on Flysystem, and scheduled tasks from one cron entry.'},
+                {icon: 'flask', title: 'Tests without a server', guide: 'getting-started', text: 'Application tests send requests through the whole HTTP kernel and run console commands in-process. Freeze the clock, or swap a service.'},
+            ] %}
+            {% for card in cards %}
+                {% set link = guides[card.guide] ?? null %}
+                <article class="feature">
+                    <div class="feature-icon">{{ icon.named(card.icon) }}</div>
+                    {% if link and link.unreleased %}<span class="pill" title="In the development version; not in a release yet">Next release</span>{% endif %}
+                    <h3>{{ card.title }}</h3>
+                    <p>{{ card.text }}</p>
+                    {% if link %}<a class="more" href="{{ link.url }}">Read more<span class="visually-hidden"> about {{ card.title|lower }}</span> {{ icon.arrow() }}</a>{% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% if packages %}
+    <section class="band" aria-labelledby="packages">
+        <div class="section">
+            <div class="section-head">
+                <p class="kicker">Packages</p>
+                <h2 id="packages">Install only what you use</h2>
+                <p>Every package shares one version number and is released together. Packages marked <span class="pill pill-inline">Next release</span> are on the development branch.</p>
+            </div>
+            <ul class="packages">
+                {% for package in packages %}
+                    <li>
+                        {% if package.url %}<a class="package" href="{{ package.url }}">{% else %}<div class="package">{% endif %}
+                            <strong>{{ package.name|replace({'crystoline/': ''}) }}</strong>
+                            {% if package.unreleased %}<span class="pill">Next release</span>{% endif %}
+                            <p>{{ package.description }}</p>
+                        {% if package.url %}</a>{% else %}</div>{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="section cta" aria-labelledby="cta">
+        {{ icon.logo('cta-logo') }}
+        <h2 id="cta">Build your first XPSR API</h2>
+        <p>The tutorial builds a small tasks API with middleware, a console command, and tests, then switches the router without touching a route.</p>
+        <div class="hero-actions">
+            {% if start %}<a class="button primary" href="{{ start.url }}">Start the tutorial {{ icon.arrow() }}</a>{% endif %}
+            <a class="button" href="{{ site.github }}">{{ icon.github() }} View on GitHub</a>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,14 @@
+CHANGELOG.md
+README.md
+UPGRADE.md
+docs/FRAMEWORK_PLAN.md
+docs/GETTING_STARTED.md
+docs/README.md
+docs/ROUTING.md
+docs/VIEWS.md
+packages/cache/README.md
+packages/cache/composer.json
+packages/cache/src/CacheServiceRegistry.php
+packages/framework/composer.json
+packages/mail/README.md
+packages/mail/composer.json

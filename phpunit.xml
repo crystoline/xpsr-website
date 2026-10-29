@@ -4,12 +4,14 @@
          bootstrap="vendor/autoload.php" colors="true" cacheDirectory=".phpunit.cache"
          failOnWarning="true" failOnRisky="true" failOnDeprecation="true">
     <testsuites>
-        <testsuite name="application"><directory>tests</directory></testsuite>
+        <testsuite name="site"><directory>tests</directory></testsuite>
     </testsuites>
     <source><include><directory>app</directory></include></source>
     <php>
-        <!-- Tests use config/testing/*.php overrides if present, and never show debug details. -->
+        <!-- config/testing/site.php reads the documentation from tests/Fixtures/sources. -->
         <env name="APP_ENV" value="testing" force="true"/>
         <env name="APP_DEBUG" value="false" force="true"/>
+        <env name="APP_URL" value="https://xpsr.test" force="true"/>
+        <env name="DOCS_NEXT_PATH" value="" force="true"/>
     </php>
 </phpunit>

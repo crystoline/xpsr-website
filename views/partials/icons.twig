@@ -1,0 +1,25 @@
+{# Inline SVG icons. Import with: {% import 'partials/icons.twig' as icon %} #}
+
+{% macro logo(id = 'logo') %}<svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="{{ id }}-fill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d5dfc"/><stop offset="1" stop-color="#14b0c7"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#{{ id }}-fill)"/><path d="M10.6 10.6 21.4 21.4M21.4 10.6 10.6 21.4" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/><circle cx="16" cy="16" r="1.9" fill="#fff"/></svg>{% endmacro %}
+
+{% macro svg(paths, class = '') %}<svg class="icon {{ class }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{{ paths|raw }}</svg>{% endmacro %}
+
+{% macro search() %}{{ _self.svg('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/>') }}{% endmacro %}
+{% macro menu() %}{{ _self.svg('<path d="M4 6h16M4 12h16M4 18h16"/>') }}{% endmacro %}
+{% macro sun() %}{{ _self.svg('<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2.5 12h2M19.5 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', 'icon-sun') }}{% endmacro %}
+{% macro moon() %}{{ _self.svg('<path d="M20.4 14.6A8.5 8.5 0 0 1 9.4 3.6a8.5 8.5 0 1 0 11 11z"/>', 'icon-moon') }}{% endmacro %}
+{% macro copy() %}{{ _self.svg('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/>', 'icon-copy') }}{% endmacro %}
+{% macro check() %}{{ _self.svg('<path d="m5 12.5 4.5 4.5L19 7.5"/>', 'icon-check') }}{% endmacro %}
+{% macro arrow() %}{{ _self.svg('<path d="M5 12h14M13 6l6 6-6 6"/>') }}{% endmacro %}
+{% macro back() %}{{ _self.svg('<path d="M19 12H5M11 6l-6 6 6 6"/>') }}{% endmacro %}
+{% macro chevron() %}{{ _self.svg('<path d="m7 10 5 5 5-5"/>', 'icon-chevron') }}{% endmacro %}
+{% macro plug() %}{{ _self.svg('<path d="M9 2.5V8M15 2.5V8M6 8h12v3.5a6 6 0 0 1-12 0zM12 17.5v4"/>') }}{% endmacro %}
+{% macro route() %}{{ _self.svg('<circle cx="6" cy="18.5" r="2.5"/><circle cx="18" cy="5.5" r="2.5"/><path d="M8.5 18.5H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h7.5"/>') }}{% endmacro %}
+{% macro layout() %}{{ _self.svg('<rect x="3" y="3.5" width="18" height="17" rx="2.5"/><path d="M3 9h18M9.5 20.5V9"/>') }}{% endmacro %}
+{% macro shield() %}{{ _self.svg('<path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/>') }}{% endmacro %}
+{% macro clock() %}{{ _self.svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>') }}{% endmacro %}
+{% macro flask() %}{{ _self.svg('<path d="M9 3h6M10 3v6.2L4.7 18.4A1.8 1.8 0 0 0 6.3 21h11.4a1.8 1.8 0 0 0 1.6-2.6L14 9.2V3"/><path d="M7.2 15h9.6"/>') }}{% endmacro %}
+{% macro box() %}{{ _self.svg('<path d="M20.5 7.5 12 3 3.5 7.5v9L12 21l8.5-4.5z"/><path d="m3.5 7.5 8.5 4.5 8.5-4.5M12 12v9"/>') }}{% endmacro %}
+{% macro info() %}{{ _self.svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.01"/>') }}{% endmacro %}
+{% macro named(name) %}{% if name == 'route' %}{{ _self.route() }}{% elseif name == 'plug' %}{{ _self.plug() }}{% elseif name == 'layout' %}{{ _self.layout() }}{% elseif name == 'shield' %}{{ _self.shield() }}{% elseif name == 'clock' %}{{ _self.clock() }}{% elseif name == 'flask' %}{{ _self.flask() }}{% else %}{{ _self.box() }}{% endif %}{% endmacro %}
+{% macro github() %}<svg class="icon" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>{% endmacro %}
