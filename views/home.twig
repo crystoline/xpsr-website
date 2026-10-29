@@ -99,7 +99,7 @@
             <div class="section-head">
                 <p class="kicker">Packages</p>
                 <h2 id="packages">Install only what you use</h2>
-                <p>Every package shares one version number and is released together. Packages marked <span class="pill pill-inline">Next release</span> are on the development branch.</p>
+                <p>Every package shares one version number and is released together.{% if packages|filter(p => p.unreleased)|length > 0 %} Packages marked <span class="pill pill-inline">Next release</span> are on the development branch.{% endif %}</p>
             </div>
             <ul class="packages">
                 {% for package in packages %}
