@@ -33,6 +33,22 @@ final class PagesTest extends TestCase
         self::assertStringContainsString('<link rel="canonical" href="https://xpsr.test/">', $html);
     }
 
+    public function testTheHomePageLinksGuidesThatOnlyTheNextReleaseHas(): void
+    {
+        $html = $this->page('/');
+
+        self::assertMatchesRegularExpression(
+            '~<span class="pill" title="[^"]*">Next release</span>\s*<h3>Tests without a server</h3>.*?<a class="more" href="/docs/next/testing/">~s',
+            $html,
+            'The testing card links to the guide, marked while only next has it.',
+        );
+        self::assertMatchesRegularExpression(
+            '~<p class="hero-note">Coming from Laravel\? Your database, encrypted data, and Sanctum tokens carry over\. <a href="/docs/next/from-laravel/">Read the guide</a>\. <span class="pill pill-inline"[^>]*>Next release</span></p>~',
+            $html,
+        );
+        self::assertStringContainsString('notifications by email, SMS, and web push', $html);
+    }
+
     public function testDocsLeadsToTheLatestRelease(): void
     {
         $html = $this->page('/docs/');

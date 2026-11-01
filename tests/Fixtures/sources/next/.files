@@ -2,9 +2,11 @@ CHANGELOG.md
 README.md
 UPGRADE.md
 docs/FRAMEWORK_PLAN.md
+docs/FROM_LARAVEL.md
 docs/GETTING_STARTED.md
 docs/README.md
 docs/ROUTING.md
+docs/TESTING.md
 docs/VIEWS.md
 packages/cache/README.md
 packages/cache/composer.json

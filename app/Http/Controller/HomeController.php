@@ -15,7 +15,8 @@ final class HomeController
     /** Guides the home page links to, by their slug. */
     private const GUIDES = [
         'getting-started', 'deployment', 'routing', 'http', 'views', 'sessions', 'auth', 'console',
-        'container', 'events', 'packages', 'versioning', 'changelog', 'packages/queue',
+        'container', 'events', 'packages', 'versioning', 'changelog', 'packages/queue', 'testing',
+        'from-laravel',
     ];
 
     public function __construct(

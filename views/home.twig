@@ -24,6 +24,10 @@
                     <code>composer create-project crystoline/xpsr my-app</code>
                     <button class="copy-button" type="button" data-copy="composer create-project crystoline/xpsr my-app" aria-label="Copy the install command">{{ icon.copy() }}{{ icon.check() }}</button>
                 </div>
+                {% set laravel = guides['from-laravel'] ?? null %}
+                {% if laravel %}
+                    <p class="hero-note">Coming from Laravel? Your database, encrypted data, and Sanctum tokens carry over. <a href="{{ laravel.url }}">Read the guide</a>.{% if laravel.unreleased %} <span class="pill pill-inline" title="In the development version; not in a release yet">Next release</span>{% endif %}</p>
+                {% endif %}
             </div>
             <div class="hero-code">
                 <div class="window">
@@ -77,8 +81,8 @@
                 {icon: 'plug', title: 'An explicit container', guide: 'container', text: 'Constructor injection by type, explicit bindings, and providers that load on first use. Any PSR-11 consumer can read it.'},
                 {icon: 'layout', title: 'Your view engine', guide: 'views', text: 'Twig by default, or Plates, Latte, or Blade. The same template functions, such as csrf_field() and can(), work in each.'},
                 {icon: 'shield', title: 'Sessions and sign-in', guide: 'auth', text: 'Sessions with CSRF protection, session and JWT guards, separate user tables such as admins, and policies for permissions.'},
-                {icon: 'clock', title: 'Work in the background', guide: 'packages/queue', text: 'Queued jobs on Symfony Messenger, email on Symfony Mailer, file storage on Flysystem, and scheduled tasks from one cron entry.'},
-                {icon: 'flask', title: 'Tests without a server', guide: 'getting-started', text: 'Application tests send requests through the whole HTTP kernel and run console commands in-process. Freeze the clock, or swap a service.'},
+                {icon: 'clock', title: 'Work in the background', guide: 'packages/queue', text: 'Queued jobs on Symfony Messenger, with retries and unique jobs; notifications by email, SMS, and web push; file storage on Flysystem; and scheduled tasks from one cron entry.'},
+                {icon: 'flask', title: 'Tests without a server', guide: 'testing', text: 'Requests run through the whole HTTP kernel and come back with chained assertions. Fake the queue, notifications, and HTTP, and start each test from a known database.'},
             ] %}
             {% for card in cards %}
                 {% set link = guides[card.guide] ?? null %}

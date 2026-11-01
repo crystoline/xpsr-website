@@ -30,3 +30,5 @@ Not a page:
 
 - [Upgrade guide](../UPGRADE.md)
 - [Changelog](../CHANGELOG.md)
+- [Testing](TESTING.md)
+- [Coming from Laravel](FROM_LARAVEL.md)

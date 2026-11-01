@@ -396,6 +396,8 @@ kbd {
     font: 14px/1.4 var(--mono);
 }
 .install code { overflow-x: auto; white-space: nowrap; }
+.hero-note { max-width: 34rem; margin: 18px 0 0; color: var(--text-2); font-size: .95rem; }
+.hero-note a { font-weight: 650; }
 .prompt { color: var(--text-3); user-select: none; }
 
 .window {

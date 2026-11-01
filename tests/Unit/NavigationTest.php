@@ -31,7 +31,7 @@ final class NavigationTest extends TestCase
         self::assertNotContains('docs/HIDDEN.md', $paths);
         self::assertNotContains('docs/CODE.md', $paths);
         self::assertSame('docs/GETTING_STARTED.md', $paths[0], 'The link in the introduction is not a page; the list item is.');
-        self::assertCount(8, $paths);
+        self::assertCount(10, $paths);
     }
 
     public function testFilteringDropsPagesAndEmptySections(): void
