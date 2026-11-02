@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Application;
 
-use Psr\Http\Message\ResponseInterface;
+use Crystoline\Xpsr\Testing\TestResponse;
 use Tests\TestCase;
 
 /**
@@ -144,7 +144,7 @@ final class PagesTest extends TestCase
         self::assertStringContainsString('href="/assets/site.css?v=' . $hash . '"', $this->page('/'));
     }
 
-    protected function get(string $uri, array $headers = []): ResponseInterface
+    protected function get(string $uri, array $headers = []): TestResponse
     {
         return parent::get($uri, $headers + ['Accept' => 'text/html']);
     }
