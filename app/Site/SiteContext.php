@@ -58,6 +58,7 @@ final class SiteContext
             'docs_home' => $latest !== null ? $this->docs->url($latest) : '/docs/',
             'tutorial' => $this->latestPage('getting-started'),
             'changelog' => $this->latestPage('changelog'),
+            'contributing' => $this->latestPage('contributing'),
             'footer_guides' => array_filter([
                 'Getting started' => $this->latestPage('getting-started'),
                 'Routing' => $this->latestPage('routing'),
